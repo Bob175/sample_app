@@ -24,10 +24,16 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'pg'
+
 group :development, :test do
-  gem 'pg'
-  #gem 'sqlite3', '1.3.8'
   gem 'rspec-rails'#, '2.13.1'
+  gem 'guard-rspec'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+#  gem 'spork-rails'
+#  gem 'guard-spork'
+#  gem 'childprocess'
 end
 
 group :test do
@@ -41,7 +47,6 @@ group :doc do
 end
 
 group :production do
-  gem 'pg'#, '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
 
