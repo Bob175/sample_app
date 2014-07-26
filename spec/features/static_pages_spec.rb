@@ -3,37 +3,55 @@ require 'rails_helper'
 
 describe "StaticPages" do
   let(:base_title) { 'Ruby on Rails Tutorial Sample App' }
-  subject { page }  # predefines the expect(object)
+  subject { page }  # predefines the object for expect(object)
+
+  shared_examples_for "all static pages" do
+    it { is_expected.to have_selector('h1', text: heading) }
+    it { is_expected.to have_title(full_title(page_title)) }
+  end
 
   describe "Home page" do
     before { visit root_path }
-
-    # 'is_expected' runs 'expect(subject)'
-    it { is_expected.to have_content('Sample App') }
-
-    # call helper function defined in spec/support/utilities.rb
-    it { is_expected.to have_title(full_title('')) }
+    let(:heading) { 'Sample App' }  # 'let' defines lazily evaluated variables
+    let(:page_title) { '' }
+    it_should_behave_like "all static pages"
     it { is_expected.not_to have_title('| Home') }
   end
   
   describe "Help page" do
     before { visit help_path }
-
-    it { is_expected.to have_content('Help') }
-    it { is_expected.to have_title("#{base_title} | Help") }
+    let(:heading) { 'Help' }
+    let(:page_title) { 'Help' }
+    it_should_behave_like "all static pages"
   end
   
   describe "About page" do
     before { visit about_path }
-
-    it { is_expected.to have_content('About Us') }
-    it { is_expected.to have_title("#{base_title} | About Us") }
+    let(:heading) { 'About Us' }
+    let(:page_title) { 'About Us' }
+    it_should_behave_like "all static pages"
   end
   
   describe 'Contact page' do
     before { visit contact_path }
-
-    it { is_expected.to have_content('Contact') }
-    it { is_expected.to have_title("#{base_title} | Contact") }
+    let(:heading) { 'Contact' }
+    let(:page_title) { 'Contact' }
+    it_should_behave_like "all static pages"
   end
+
+  it "has the right links on the layout" do
+    visit root_path
+    click_link "About"
+    is_expected.to have_title(full_title('About Us'))
+    click_link "Help"
+    is_expected.to have_title(full_title('Help'))
+    click_link "Contact"
+    is_expected.to have_title(full_title('Contact'))
+    click_link "Home"
+    click_link "Sign up now!"
+    is_expected.to have_title(full_title('Sign up'))
+    click_link "sample app"
+    is_expected.to have_title(full_title(''))
+  end
+
 end
