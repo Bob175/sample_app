@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.5'
 gem 'bootstrap-sass'
 gem 'sprockets-rails'
+gem 'bcrypt-ruby'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -36,6 +37,7 @@ group :development, :test do
 #  gem 'spork-rails'
 #  gem 'guard-spork'
 #  gem 'childprocess'
+  gem 'factory_girl_rails'
 end
 
 group :test do
