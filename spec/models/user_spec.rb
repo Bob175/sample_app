@@ -97,7 +97,7 @@ describe User do
     describe "with invalid password" do
       let(:user_for_invalid_password) { found_user.authenticate("wrongpassword") }
       it { is_expected.not_to eq(user_for_invalid_password) }
-      specify { expect(user_for_invalid_password).to be_false }
+      specify { expect(user_for_invalid_password).to eq(false) }
     end
   end
 end
